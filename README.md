@@ -1,3 +1,7 @@
 # Algorytmy optymalizacji
+
 Zajęcia projektowe z algorytmów optymalizacji
-Termin zajęć: Środa, 15:15-16:55, TN
+
+Termin zajęć: Środa TN, 15:15-16:55
+
+Sprawozdanie (wersja tylko do wglądu): https://www.overleaf.com/read/zcwkvhtztrph#0b31de
