@@ -30,19 +30,36 @@ def generate_population(items, population_size):
 
 # Calculates the fitness of a solution based on how well the items fit
 # into the knapsack without exceeding its width and height constraints
+# def fitness(solution, items, knapsack_width, knapsack_height):
+#     used_width = 0
+#     used_height = 0
+#     for i in range(len(items)):
+#         if solution[i] == 1:
+#             used_width += items[i].width
+#             used_height = max(used_height, items[i].height)
+#             if used_width > knapsack_width:
+#                 used_width = items[i].width
+#                 used_height += items[i].height
+#             if used_height > knapsack_height:
+#                 return 0
+#     return used_width * used_height #chujowo, zwraca caly plecak
+
+#dalej chujowo, oblicza tylko elementy, ale wklada wszystkie
 def fitness(solution, items, knapsack_width, knapsack_height):
+    fit=0
     used_width = 0
     used_height = 0
-    for i in range(len(items)):
-        if solution[i] == 1:
+    for i in range(0, len(items)):
+        if solution[i]==1:
             used_width += items[i].width
-            used_height = max(used_height, items[i].height)
+            used_height = max(used_height, items[i].height) #to daje na najwyzszy element, nawet jesli da loby sie nizej
             if used_width > knapsack_width:
                 used_width = items[i].width
                 used_height += items[i].height
             if used_height > knapsack_height:
                 return 0
-    return used_width * used_height
+            fit+=(items[i].width*items[i].height)
+    return fit
 
 # Selects the best-performing solutions from the population based on their fitness scores to proceed to the next generation
 def selection(population, items, knapsack_width, knapsack_height):
@@ -147,7 +164,7 @@ if __name__ == "__main__":
         Item("item4", 5, 6),
         Item("item5", 6, 7),
         Item("item6", 7, 8),
-        Item("item7", 8, 9),
+        Item("item7", 20, 29),
         Item("item8", 9, 10),
         Item("item9", 10, 11),
         Item("item10", 11, 12),
