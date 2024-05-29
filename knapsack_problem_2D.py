@@ -157,14 +157,15 @@ def genetic_algorithm(items, knapsack_width, knapsack_height, population_size, g
         best_solution = max(population, key=lambda x: fitness(x, sorted_items, knapsack_width, knapsack_height, True))
         best_fitness = fitness(best_solution, sorted_items, knapsack_width, knapsack_height, True)
         fitness_history.append(best_fitness)
-        if best_fitness==knapsack_height*knapsack_width:
+        amount=0
+        for i in range(len(best_solution)):
+            if best_solution[i]==1:
+                amount+=1
+        if best_fitness==knapsack_height*knapsack_width or amount==len(items):
             print("\nfound complete solution: stopping\n")
             break
         mutation_rate *= 0.95   # Decrease mutation rate
-    amount=0
-    for i in range(len(best_solution)):
-        if best_solution[i]==1:
-            amount+=1
+
     print(amount)
     return best_solution, best_fitness, fitness_history
 
