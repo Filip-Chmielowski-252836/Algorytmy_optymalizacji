@@ -158,7 +158,7 @@ def genetic_algorithm(items, knapsack_width, knapsack_height, population_size, g
         best_fitness = fitness(best_solution, sorted_items, knapsack_width, knapsack_height, True)
         fitness_history.append(best_fitness)
         if best_fitness==knapsack_height*knapsack_width:
-            print("found complete solution: stopping")
+            print("\nfound complete solution: stopping\n")
             break
         mutation_rate *= 0.95   # Decrease mutation rate
     amount=0
