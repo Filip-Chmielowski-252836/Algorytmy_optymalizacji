@@ -83,8 +83,8 @@ def fitness(solution, items, knapsack_width, knapsack_height, return_fit):
                         packed_items.append(item_to_pack)
                         packed_items_ret.append((items[i], x, y))
                         item_placed = True
-
                         break
+                    
                     elif not item_to_pack.top_right[0] <= knapsack_width and not item_to_pack.top_right[1] <= knapsack_height:
                         return 0
                 if item_placed:
@@ -127,11 +127,15 @@ def visualize_solution(items, knapsack_width, knapsack_height, solution):
     ax.set_ylim(0, knapsack_height)
     ax.set_aspect('equal', 'box')
 
-    for item, x, y in packed_items:
-        color = (random.random(), random.random(), random.random())   # Generate a random color for each item in the knapsack
-        rect = patches.Rectangle((x, y), item.width, item.height, linewidth = 1, edgecolor = "r", facecolor = color)
-        ax.add_patch(rect)
-        ax.text(x + item.width / 2, y + item.height / 2, item.name, ha = "center", va = "center", fontsize = 8, weight = "bold", color = "white")
+    if packed_items!=0:
+        for item, x, y in packed_items:
+            color = (random.random(), random.random(), random.random())   # Generate a random color for each item in the knapsack
+            rect = patches.Rectangle((x, y), item.width, item.height, linewidth = 1, edgecolor = "r", facecolor = color)
+            ax.add_patch(rect)
+            ax.text(x + item.width / 2, y + item.height / 2, item.name, ha = "center", va = "center", fontsize = 8, weight = "bold", color = "white")
+
+    else:
+        print("knapsack is empty!")
 
     plt.xlabel('Width')
     plt.ylabel('Height')
@@ -185,8 +189,8 @@ def load_json(fname):
 # Main function of the program
 if __name__ == "__main__":
 
-    print(load_json("dataset.json"))
-    name, items, knapsack_width, knapsack_height = load_json("dataset.json")
+    # print(load_json("dataset1.json"))
+    name, items, knapsack_width, knapsack_height = load_json("dataset5.json")
 
 
     population_size =100
