@@ -1,0 +1,107 @@
+{
+    "name": "dataset 3",
+    "size_x": 15,
+    "size_y": 25,
+    "items": [
+      {
+        "name": "A",
+        "size_x": 6,
+        "size_y": 8
+      },
+      {
+        "name": "B",
+        "size_x": 4,
+        "size_y": 5
+      },
+      {
+        "name": "C",
+        "size_x": 5,
+        "size_y": 7
+      },
+      {
+        "name": "D",
+        "size_x": 6,
+        "size_y": 6
+      },
+      {
+        "name": "E",
+        "size_x": 3,
+        "size_y": 4
+      },
+      {
+        "name": "F",
+        "size_x": 2,
+        "size_y": 5
+      },
+      {
+        "name": "G",
+        "size_x": 7,
+        "size_y": 8
+      },
+      {
+        "name": "H",
+        "size_x": 5,
+        "size_y": 4
+      },
+      {
+        "name": "I",
+        "size_x": 4,
+        "size_y": 6
+      },
+      {
+        "name": "J",
+        "size_x": 6,
+        "size_y": 3
+      },
+      {
+        "name": "K",
+        "size_x": 3,
+        "size_y": 3
+      },
+      {
+        "name": "L",
+        "size_x": 5,
+        "size_y": 5
+      },
+      {
+        "name": "M",
+        "size_x": 4,
+        "size_y": 7
+      },
+      {
+        "name": "N",
+        "size_x": 6,
+        "size_y": 2
+      },
+      {
+        "name": "O",
+        "size_x": 5,
+        "size_y": 6
+      },
+      {
+        "name": "P",
+        "size_x": 2,
+        "size_y": 4
+      },
+      {
+        "name": "Q",
+        "size_x": 7,
+        "size_y": 3
+      },
+      {
+        "name": "R",
+        "size_x": 3,
+        "size_y": 6
+      },
+      {
+        "name": "S",
+        "size_x": 4,
+        "size_y": 5
+      },
+      {
+        "name": "T",
+        "size_x": 6,
+        "size_y": 7
+      }
+    ]
+  }

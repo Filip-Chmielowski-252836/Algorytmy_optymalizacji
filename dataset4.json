@@ -1,0 +1,127 @@
+{
+    "name": "dataset 4",
+    "size_x": 25,
+    "size_y": 30,
+    "items": [
+      {
+        "name": "Alpha",
+        "size_x": 8,
+        "size_y": 9
+      },
+      {
+        "name": "Beta",
+        "size_x": 7,
+        "size_y": 6
+      },
+      {
+        "name": "Gamma",
+        "size_x": 6,
+        "size_y": 7
+      },
+      {
+        "name": "Delta",
+        "size_x": 9,
+        "size_y": 8
+      },
+      {
+        "name": "Epsilon",
+        "size_x": 5,
+        "size_y": 4
+      },
+      {
+        "name": "Zeta",
+        "size_x": 4,
+        "size_y": 6
+      },
+      {
+        "name": "Eta",
+        "size_x": 7,
+        "size_y": 5
+      },
+      {
+        "name": "Theta",
+        "size_x": 6,
+        "size_y": 9
+      },
+      {
+        "name": "Iota",
+        "size_x": 5,
+        "size_y": 7
+      },
+      {
+        "name": "Kappa",
+        "size_x": 4,
+        "size_y": 5
+      },
+      {
+        "name": "Lambda",
+        "size_x": 7,
+        "size_y": 8
+      },
+      {
+        "name": "Mu",
+        "size_x": 6,
+        "size_y": 6
+      },
+      {
+        "name": "Nu",
+        "size_x": 8,
+        "size_y": 5
+      },
+      {
+        "name": "Xi",
+        "size_x": 5,
+        "size_y": 8
+      },
+      {
+        "name": "Omicron",
+        "size_x": 4,
+        "size_y": 4
+      },
+      {
+        "name": "Pi",
+        "size_x": 7,
+        "size_y": 7
+      },
+      {
+        "name": "Rho",
+        "size_x": 6,
+        "size_y": 3
+      },
+      {
+        "name": "Sigma",
+        "size_x": 8,
+        "size_y": 4
+      },
+      {
+        "name": "Tau",
+        "size_x": 5,
+        "size_y": 6
+      },
+      {
+        "name": "Upsilon",
+        "size_x": 4,
+        "size_y": 7
+      },
+      {
+        "name": "Phi",
+        "size_x": 7,
+        "size_y": 9
+      },
+      {
+        "name": "Chi",
+        "size_x": 6,
+        "size_y": 4
+      },
+      {
+        "name": "Psi",
+        "size_x": 5,
+        "size_y": 5
+      },
+      {
+        "name": "Omega",
+        "size_x": 4,
+        "size_y": 8
+      }
+    ]
+  }
