@@ -178,7 +178,6 @@ def load_json(fname):
     f.close()
     return parsed["name"], items, parsed["size_x"], parsed["size_y"]
 
-# Main function of the program
 if __name__ == "__main__":
 
     # print(load_json("dataset1.json"))
