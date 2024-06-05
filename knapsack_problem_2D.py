@@ -32,12 +32,6 @@ def generate_population(items, population_size):
     return population
 
 
-class FreeSpace:
-    def __init__(self, bottom_left, top_right):
-        self.bottom_left = bottom_left
-        self.top_right = top_right
-
-
 class PackedItem:
     def __init__(self, name, bottom_left, top_right):
         self.name = name
@@ -47,9 +41,6 @@ class PackedItem:
         self.height = top_right[1] - bottom_left[1]
 
 def does_collide(item1, item2):
-    """
-    Check if two items collide.
-    """
     if item1.top_right[0] <= item2.bottom_left[0] or item2.top_right[0] <= item1.bottom_left[0]:
         return False
     
@@ -171,6 +162,7 @@ def genetic_algorithm(items, knapsack_width, knapsack_height, population_size, g
         mutation_rate *= 0.95   # Decrease mutation rate
 
     print(amount)
+    print(best_solution)
     return best_solution, best_fitness, fitness_history
 
 def load_json(fname):
@@ -190,7 +182,7 @@ def load_json(fname):
 if __name__ == "__main__":
 
     # print(load_json("dataset1.json"))
-    name, items, knapsack_width, knapsack_height = load_json("dataset5.json")
+    name, items, knapsack_width, knapsack_height = load_json("dataset.json")
 
 
     population_size =100
