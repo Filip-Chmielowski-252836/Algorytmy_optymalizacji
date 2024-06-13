@@ -1,0 +1,87 @@
+{
+    "name": "dataset 1 - obiad",
+    "size_x": 15,
+    "size_y": 8,
+    "items": [
+      {
+        "name": "zupa",
+        "size_x": 3,
+        "size_y": 3
+      },
+      {
+        "name": "chleb",
+        "size_x": 4,
+        "size_y": 2
+      },
+      {
+        "name": "bagietka",
+        "size_x": 1,
+        "size_y": 8
+      },
+      {
+        "name": "bułka",
+        "size_x": 3,
+        "size_y": 3
+      },
+      {
+        "name": "chleb",
+        "size_x": 2,
+        "size_y": 2
+      },
+      {
+        "name": "frytki",
+        "size_x": 4,
+        "size_y": 3
+      },
+      {
+        "name": "stek",
+        "size_x": 5,
+        "size_y": 5
+      },
+      {
+        "name": "woda",
+        "size_x": 2,
+        "size_y": 2
+      },
+      {
+        "name": "wino",
+        "size_x": 2,
+        "size_y": 2
+      },
+      {
+        "name": "befsztyk",
+        "size_x": 4,
+        "size_y": 5
+      },
+      {
+        "name": "ziemniaki",
+        "size_x": 4,
+        "size_y": 4
+      },
+      {
+        "name": "pizza",
+        "size_x": 6,
+        "size_y": 6
+      },
+      {
+        "name": "makaron",
+        "size_x": 4,
+        "size_y": 6
+      },
+      {
+        "name": "jablecznik",
+        "size_x": 1,
+        "size_y": 3
+      },
+      {
+        "name": "robert patison",
+        "size_x": 1,
+        "size_y": 4
+      },
+      {
+        "name": "SER",
+        "size_x": 1,
+        "size_y": 1
+      }
+    ]
+  }

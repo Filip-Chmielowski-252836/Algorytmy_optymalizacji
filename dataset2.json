@@ -1,0 +1,82 @@
+{
+    "name": "dataset 2",
+    "size_x": 10,
+    "size_y": 10,
+    "items": [
+      {
+        "name": "1",
+        "size_x": 2,
+        "size_y": 2
+      },
+      {
+        "name": "2",
+        "size_x": 3,
+        "size_y": 2
+      },
+      {
+        "name": "3",
+        "size_x": 4,
+        "size_y": 3
+      },
+      {
+        "name": "4",
+        "size_x": 1,
+        "size_y": 5
+      },
+      {
+        "name": "5",
+        "size_x": 2,
+        "size_y": 4
+      },
+      {
+        "name": "6",
+        "size_x": 3,
+        "size_y": 6
+      },
+      {
+        "name": "7",
+        "size_x": 2,
+        "size_y": 1
+      },
+      {
+        "name": "8",
+        "size_x": 4,
+        "size_y": 5
+      },
+      {
+        "name": "9",
+        "size_x": 5,
+        "size_y": 2
+      },
+      {
+        "name": "10",
+        "size_x": 3,
+        "size_y": 3
+      },
+      {
+        "name": "11",
+        "size_x": 1,
+        "size_y": 4
+      },
+      {
+        "name": "12",
+        "size_x": 2,
+        "size_y": 3
+      },
+      {
+        "name": "13",
+        "size_x": 3,
+        "size_y": 5
+      },
+      {
+        "name": "14",
+        "size_x": 4,
+        "size_y": 6
+      },
+      {
+        "name": "15",
+        "size_x": 2,
+        "size_y": 2
+      }
+    ]
+  }

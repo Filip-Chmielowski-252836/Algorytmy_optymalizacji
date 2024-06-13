@@ -1,0 +1,127 @@
+{
+    "name": "dataset 1",
+    "size_x": 60,
+    "size_y": 80,
+    "items": [
+      {
+        "name": "1",
+        "size_x": 2,
+        "size_y": 3
+      },
+      {
+        "name": "2",
+        "size_x": 3,
+        "size_y": 4
+      },
+      {
+        "name": "3",
+        "size_x": 4,
+        "size_y": 5
+      },
+      {
+        "name": "4",
+        "size_x": 5,
+        "size_y": 6
+      },
+      {
+        "name": "5",
+        "size_x": 6,
+        "size_y": 7
+      },
+      {
+        "name": "6",
+        "size_x": 7,
+        "size_y": 8
+      },
+      {
+        "name": "7",
+        "size_x": 8,
+        "size_y": 9
+      },
+      {
+        "name": "8",
+        "size_x": 9,
+        "size_y": 10
+      },
+      {
+        "name": "9",
+        "size_x": 10,
+        "size_y": 11
+      },
+      {
+        "name": "10",
+        "size_x": 11,
+        "size_y": 12
+      },
+      {
+        "name": "11",
+        "size_x": 12,
+        "size_y": 13
+      },
+      {
+        "name": "12",
+        "size_x": 13,
+        "size_y": 14
+      },
+      {
+        "name": "13",
+        "size_x": 14,
+        "size_y": 15
+      },
+      {
+        "name": "14",
+        "size_x": 15,
+        "size_y": 16
+      },
+      {
+        "name": "15",
+        "size_x": 16,
+        "size_y": 17
+      },
+      {
+        "name": "16",
+        "size_x": 17,
+        "size_y": 18
+      },
+      {
+        "name": "17",
+        "size_x": 18,
+        "size_y": 19
+      },
+      {
+        "name": "18",
+        "size_x": 19,
+        "size_y": 20
+      },
+      {
+        "name": "19",
+        "size_x": 20,
+        "size_y": 21
+      },
+      {
+        "name": "20",
+        "size_x": 21,
+        "size_y": 22
+      },
+      {
+        "name": "21",
+        "size_x": 22,
+        "size_y": 23
+      },
+      {
+        "name": "22",
+        "size_x": 23,
+        "size_y": 24
+      },
+      {
+        "name": "23",
+        "size_x": 24,
+        "size_y": 25
+      },
+      {
+        "name": "24",
+        "size_x": 25,
+        "size_y": 26
+      }
+    ]
+  }
