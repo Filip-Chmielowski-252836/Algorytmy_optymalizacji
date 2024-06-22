@@ -11,8 +11,10 @@
 import random
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
-from tqdm import tqdm
+import alive_progress as ab
 import json
+import itertools
+import time
 # Represents an item with a name, width, and height
 class Item:
     def __init__(self, name, width, height):
@@ -53,8 +55,73 @@ def does_collide(item1, item2):
 
 
 
+def fitness(solution, items, knapsack_width, knapsack_height, return_fit, method):
+    if method == 'full_search':
+        return fitness_full_search(solution, items, knapsack_width, knapsack_height, return_fit)
+    if method == 'top_search':
+        return fitness_top_search(solution, items, knapsack_width, knapsack_height, return_fit)
+    raise NotImplementedError
+    
 
-def fitness(solution, items, knapsack_width, knapsack_height, return_fit):
+
+def fitness_top_search(solution, items, knapsack_width, knapsack_height, return_fit):
+    fit = 0
+    packed_items_ret = []
+    packed_items = []
+    for i in range(len(items)):
+        if solution[i] == 1:
+            item_placed = False
+            for selected_item in packed_items:
+                # Checking bottom right corners of items
+                x = selected_item.top_right[0]
+                y = selected_item.bottom_left[1]
+                item_to_pack = PackedItem(items[i].name, [x, y], [x + items[i].width, y + items[i].height])
+                collides = False
+                for packed_item in packed_items:
+                    if does_collide(item_to_pack, packed_item):
+                        collides = True
+                        break
+                if not collides and item_to_pack.top_right[0] <= knapsack_width and item_to_pack.top_right[1] <= knapsack_height:
+                    fit += items[i].area
+                    packed_items.append(item_to_pack)
+                    packed_items_ret.append((items[i], x, y))
+                    item_placed = True
+                    break
+                # Checking the tops of every item
+                y = selected_item.top_right[1]
+                for x in range(selected_item.bottom_left[0],selected_item.top_right[0]):   # jakby chcieć ograniczyć wiszenie to tutaj zrobić jakieś -0.5długości czy coś
+                    item_to_pack = PackedItem(items[i].name, [x, y], [x + items[i].width, y + items[i].height])
+                    collides = False
+                    for packed_item in packed_items:
+                        if does_collide(item_to_pack, packed_item):
+                            collides = True
+                            break
+                    if not collides and item_to_pack.top_right[0] <= knapsack_width and item_to_pack.top_right[1] <= knapsack_height:
+                        fit += items[i].area
+                        packed_items.append(item_to_pack)
+                        packed_items_ret.append((items[i], x, y))
+                        item_placed = True
+                        break
+                if item_placed:
+                    break
+            # Checking the first row
+            if i == 0:
+                item_to_pack = PackedItem(items[i].name, [0, 0], [0 + items[i].width, 0 + items[i].height])
+                if item_to_pack.top_right[0] <= knapsack_width and item_to_pack.top_right[1] <= knapsack_height:
+                    fit += items[i].area
+                    packed_items.append(item_to_pack)
+                    packed_items_ret.append((items[i], 0, 0))
+                    item_placed = True
+            # Item does not fit - 0 value, eliminate from pool
+            if not item_placed:
+                    return 0
+    if return_fit:
+        return fit
+    else:
+        return packed_items_ret
+
+
+def fitness_full_search(solution, items, knapsack_width, knapsack_height, return_fit):
     fit = 0
     packed_items_ret = []
     packed_items = []
@@ -80,8 +147,6 @@ def fitness(solution, items, knapsack_width, knapsack_height, return_fit):
                         return 0
                 if item_placed:
                     break
-
-
     if return_fit:
         return fit
     else:
@@ -90,8 +155,8 @@ def fitness(solution, items, knapsack_width, knapsack_height, return_fit):
 
 
 # Selects the best-performing solutions from the population based on their fitness scores to proceed to the next generation
-def selection(population, items, knapsack_width, knapsack_height):
-    sorted_population = sorted(population, key=lambda x: fitness(x, items, knapsack_width, knapsack_height, True), reverse=True)
+def selection(population, items, knapsack_width, knapsack_height, packing_method):
+    sorted_population = sorted(population, key=lambda x: fitness(x, items, knapsack_width, knapsack_height, True, packing_method), reverse=True)
     return sorted_population[:len(sorted_population) // 2]
 
 # Performs crossover between two parent solutions to generate two child solutions, aiding in the exploration of the solution space
@@ -109,10 +174,10 @@ def mutation(solution, mutation_rate):
     return solution
 
 # Visualizes the best solution found by plotting the items packed in the knapsack using matplotlib
-def visualize_solution(items, knapsack_width, knapsack_height, solution):
+def visualize_solution(items, knapsack_width, knapsack_height, solution, packing_method):
 
     sorted_items = sorted(items, key=lambda x: x.area, reverse=True) 
-    packed_items = fitness(solution, sorted_items, knapsack_width, knapsack_height, False)
+    packed_items = fitness(solution, sorted_items, knapsack_width, knapsack_height, False, packing_method)
     fig, ax = plt.subplots()
     ax.set_xlim(0, knapsack_width)
     ax.set_ylim(0, knapsack_height)
@@ -133,36 +198,56 @@ def visualize_solution(items, knapsack_width, knapsack_height, solution):
     plt.title('Items in Knapsack')
     plt.show()
 
+# Brute force approach
+def brute(items, knapsack_width, knapsack_height, packing_method):
+    sorted_items = sorted(items, key=lambda x: x.area, reverse=True)    
+    # population = generate_population(items, population_size)
+    fitness_history = []
+    best_fitness=0
+    with ab.alive_bar(total=2**len(items), force_tty=True) as bar:
+        for i in itertools.product([0, 1], repeat=len(items)):
+            fit=fitness(i, sorted_items, knapsack_width, knapsack_height, True, packing_method)
+            bar()
+            if best_fitness<fit:
+                best_fitness=fit
+                best_solution=i
+                fitness_history.append(best_fitness)
+    return best_solution, best_fitness, fitness_history
+
 # Implements the genetic algorithm to solve the knapsack problem by evolving a population of solutions over multiple generations
-def genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate):
+def genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate, packing_method):
     sorted_items = sorted(items, key=lambda x: x.area, reverse=True)    
     population = generate_population(items, population_size)
     fitness_history = []
     mutation_rate = initial_mutation_rate
-    for gen in tqdm(range(generations)):
-        population = selection(population, sorted_items, knapsack_width, knapsack_height)
-        new_population = population.copy()
-        while len(new_population) < population_size:
-            parent1, parent2 = random.choice(population), random.choice(population)
-            child1, child2 = crossover(parent1, parent2)
-            child1 = mutation(child1, mutation_rate)
-            child2 = mutation(child2, mutation_rate)
-            new_population.extend([child1, child2])
-        population = new_population[:population_size]
-        best_solution = max(population, key=lambda x: fitness(x, sorted_items, knapsack_width, knapsack_height, True))
-        best_fitness = fitness(best_solution, sorted_items, knapsack_width, knapsack_height, True)
-        fitness_history.append(best_fitness)
-        amount=0
-        for i in range(len(best_solution)):
-            if best_solution[i]==1:
-                amount+=1
-        if best_fitness==knapsack_height*knapsack_width or amount==len(items):
-            print("\nfound complete solution: stopping\n")
-            break
-        mutation_rate *= 0.95   # Decrease mutation rate
-
-    print(amount)
-    print(best_solution)
+    tmsum = 0
+    with ab.alive_bar(generations, force_tty=True) as bar:
+        for gen in range(generations):
+            bar.title = 'Genetic Simulation Running'
+            bar()
+            population = selection(population, sorted_items, knapsack_width, knapsack_height, packing_method)
+            new_population = population.copy()
+            while len(new_population) < population_size:
+                parent1, parent2 = random.choice(population), random.choice(population)
+                child1, child2 = crossover(parent1, parent2)
+                child1 = mutation(child1, mutation_rate)
+                child2 = mutation(child2, mutation_rate)
+                new_population.extend([child1, child2])
+            population = new_population[:population_size]
+            tm0 = time.time()
+            best_solution = max(population, key=lambda x: fitness(x, sorted_items, knapsack_width, knapsack_height, True, packing_method))
+            best_fitness = fitness(best_solution, sorted_items, knapsack_width, knapsack_height, True, packing_method)
+            tm1 = time.time()
+            tmsum = tmsum + tm1-tm0
+            fitness_history.append(best_fitness)
+            amount=0
+            for i in range(len(best_solution)):
+                if best_solution[i]==1:
+                    amount+=1
+            if best_fitness==knapsack_height*knapsack_width or amount==len(items):
+                bar.title = 'Solution Found - Early Stop'
+                break
+            mutation_rate *= 0.95   # Decrease mutation rate
     return best_solution, best_fitness, fitness_history
 
 def load_json(fname):
@@ -180,19 +265,20 @@ def load_json(fname):
 
 if __name__ == "__main__":
 
-    # print(load_json("dataset1.json"))
-    name, items, knapsack_width, knapsack_height = load_json("dataset.json")
+
+    name, items, knapsack_width, knapsack_height = load_json("dataset1.json")
 
 
     population_size =100
     generations = 50
     initial_mutation_rate = 0.1
+    packing_method = 'top_search'
 
-    best_solution, best_fitness, fitness_history = genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate)
+    best_solution, best_fitness, fitness_history = genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate, packing_method)
     print("Best Solution:", best_solution)
     print("Best Fitness:", best_fitness)
 
-    visualize_solution(items, knapsack_width, knapsack_height, best_solution)
+    visualize_solution(items, knapsack_width, knapsack_height, best_solution, packing_method)
 
     plt.plot(fitness_history)
     plt.xlabel('Generation')
