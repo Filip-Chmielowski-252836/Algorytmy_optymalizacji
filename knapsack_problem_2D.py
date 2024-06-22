@@ -214,6 +214,7 @@ def brute(items, knapsack_width, knapsack_height, packing_method):
                 fitness_history.append(best_fitness)
     return best_solution, best_fitness, fitness_history
 
+
 # Implements the genetic algorithm to solve the knapsack problem by evolving a population of solutions over multiple generations
 def genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate, packing_method):
     sorted_items = sorted(items, key=lambda x: x.area, reverse=True)    
@@ -267,7 +268,7 @@ def load_json(fname):
 if __name__ == "__main__":
 
 
-    name, items, knapsack_width, knapsack_height = load_json("dataset1.json")
+    name, items, knapsack_width, knapsack_height = load_json("dataset.json")
 
 
     population_size =100
@@ -275,14 +276,65 @@ if __name__ == "__main__":
     initial_mutation_rate = 0.1
     packing_method = 'top_search'
 
-    best_solution, best_fitness, fitness_history = genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate, packing_method)
-    print("Best Solution:", best_solution)
-    print("Best Fitness:", best_fitness)
 
-    visualize_solution(items, knapsack_width, knapsack_height, best_solution, packing_method)
+    # A Dynamic Programming based Python
+    # Program for 0-1 Knapsack problem
+    # Returns the maximum value that can
+    # be put in a knapsack of capacity W
+    #
+    # Loosely based on https://www.geeksforgeeks.org/0-1-knapsack-problem-dp-10/
+    #
+    def dynamic_programming(items, knapsack_width, knapsack_height, packing_method):
+    # def knapSack(W, wt, val, n):
+        max_weight = knapsack_height*knapsack_width
+        K = [[[0 for _ in range(knapsack_height + 1)] for _ in range(knapsack_width + 1)] for _ in range(len(items) + 1)]
 
-    plt.plot(fitness_history)
-    plt.xlabel('Generation')
-    plt.ylabel('Fitness')
-    plt.title('Fitness Changes over Generations')
-    plt.show()
+        # Build table K[][][] in bottom up manner
+        with ab.alive_bar(len(items) + 1, force_tty=True) as bar:
+            for item_idx in range(len(items) + 1):             # currently tested item form i
+                bar()
+                sorted_items = sorted(items, key=lambda x: x.area, reverse=True)  
+                for curr_max_w in range(knapsack_width + 1):
+                    for curr_max_h in range(knapsack_height + 1):
+                        if item_idx == 0 or curr_max_w == 0 or curr_max_h == 0:
+                            K[item_idx][curr_max_w][curr_max_h] = 0
+                        elif items[item_idx-1].width <= curr_max_w and items[item_idx-1].height <= curr_max_h:
+                            # Get current item list from table K\
+                            back_max_w = curr_max_w
+                            back_max_h =curr_max_h
+                            packed_list = [0 for _ in items]
+                            sack_empty = 1
+                            for back_item in reversed(range(0,item_idx-1)):
+                                # print(back_item)
+                                if K[back_item][back_max_w][back_max_h] != K[back_item-1][back_max_w][back_max_h]:
+                                    # item is packed
+                                    print(back_item)
+                                    back_max_w -= items[back_item].width
+                                    back_max_h -= items[back_item].height
+                                    packed_list[back_item] = 1
+                                    sack_empty = 0
+                            if sack_empty == 1:
+                                packed_list[item_idx-1] = 1
+                            # /\/\/\/\
+                            K[item_idx][curr_max_w][curr_max_h] = max(fitness(packed_list, sorted_items, knapsack_width, knapsack_height, True, packing_method),
+                                        K[item_idx-1][curr_max_w][curr_max_h])
+                        else:
+                            K[item_idx][curr_max_w][curr_max_h] = K[item_idx-1][curr_max_w][curr_max_h]
+        print(K)
+        return K[len(items)][knapsack_width][knapsack_height]
+
+
+
+    # best_solution, best_fitness, fitness_history = genetic_algorithm(items, knapsack_width, knapsack_height, population_size, generations, initial_mutation_rate, packing_method)
+
+    print(dynamic_programming(items, knapsack_width, knapsack_height, packing_method))
+    # print("Best Solution:", best_solution)
+    # print("Best Fitness:", best_fitness)
+    
+    # # visualize_solution(items, knapsack_width, knapsack_height, best_solution, packing_method)
+
+    # plt.plot(fitness_history)
+    # plt.xlabel('Generation')
+    # plt.ylabel('Fitness')
+    # plt.title('Fitness Changes over Generations')
+    # plt.show()
